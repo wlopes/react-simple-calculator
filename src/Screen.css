@@ -1,0 +1,8 @@
+.Screen{
+    background-color: black;
+    color: white;
+    font-family: 'monospace';
+    padding: 10px;
+    text-align: right;
+    font-size: 1.4rem;
+}

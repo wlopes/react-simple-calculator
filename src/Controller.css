@@ -1,0 +1,41 @@
+.Controller{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    flex: 1;
+    gap:6px;    
+}
+
+.Controller button{
+    font-size: 1.25rem;
+    border:none;
+    outline: none;
+    background-color: #ccc;
+    border-radius: 5%;
+    cursor: pointer;
+    border: 1px solid #bbb;
+    box-shadow: 1px 1px #aaa;
+}
+
+.Controller button:hover{
+    background-color: #888;
+}
+
+.Controller button.operation{
+    background-color: #888;
+}
+
+.Controller button.operation:hover{
+    background-color: #333;
+    color:white;
+}
+
+.Controller button.equal{
+    background-color: #26C485;
+    grid-row:5/7;
+    grid-column: 4;
+}
+
+.Controller button.equal:hover{
+    background-color: #1D9A68;
+}

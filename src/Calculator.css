@@ -1,0 +1,11 @@
+.Calculator{
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 350px;
+    background-color: #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 8px;
+    gap: 20px;
+}
