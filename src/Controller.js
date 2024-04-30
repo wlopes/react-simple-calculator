@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useCallback } from 'react';
 import './Controller.css'
 import { CalcContext } from './Calculator';
 
@@ -6,41 +6,41 @@ const Controller = ()=>{
 
     const context = useContext(CalcContext)    
 
-    const numberClickHandler = (param)=>{
+    const numberClickHandler = useCallback((param)=>{
         context.dispatch({type:'number', payload:param})    
-    }
+    },[context])
     
-    const zeroClickHandler = (param)=>{
+    const zeroClickHandler = useCallback((param)=>{
         context.dispatch({type:'zero', payload:param})   
-    }
+    },[context])
 
-    const opClickHandler = (param)=>{
+    const opClickHandler = useCallback((param)=>{
         context.dispatch({type:'operation', payload:param})   
-    }
+    },[context])
 
-    const equalsClickHandler = (param)=>{
+    const equalsClickHandler = useCallback((param)=>{
         context.dispatch({type:'equals'})   
-    }
+    },[context])
 
-    const commaClickHandler = ()=>{
+    const commaClickHandler = useCallback(()=>{
         context.dispatch({type:'comma'})  
-    }
+    },[context])
 
-    const squareRootClickHandler = ()=>{
+    const squareRootClickHandler = useCallback(()=>{
         context.dispatch({type:'square-root'})  
-    }
+    },[context])
 
-    const powerClickHandler = (n)=>{
+    const powerClickHandler = useCallback((n)=>{
         context.dispatch({type:'power', payload:n})
-    }
+    },[context])
 
-    const acClick = ()=>{
+    const acClick = useCallback(()=>{
         context.dispatch({type:'ac'})
-    }
+    },[context])
 
-    const signalClickHandler = ()=>{
+    const signalClickHandler = useCallback(()=>{
         context.dispatch({type:'signal'})
-    }
+    },[context])
 
     useEffect(() => {
         document.addEventListener('keydown',(event)=>{
@@ -79,7 +79,7 @@ const Controller = ()=>{
                     return;
             }
         })
-      }, []);
+      },[commaClickHandler, equalsClickHandler, numberClickHandler, opClickHandler, zeroClickHandler]);
 
     return <div className='Controller'>
         <button onClick={()=>acClick()}>AC</button>            
