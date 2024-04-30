@@ -26,13 +26,15 @@ function solveOperation(state){
 
 const reducer = (state, action)=>{      
     switch (action.type){
-        case 'number':            
+        case 'ac':
+            return {...initialState}
+        case 'number':                
             if(state.comma){
                 let postComma = state.postComma+1
-                let result = state.screenValue + action.payload * Math.pow(10,-postComma)                
+                let result = state.screenValue + state.signal*action.payload * Math.pow(10,-postComma)                
                 return {...state, screenValue:parseFloat(result.toFixed(postComma)), postComma:postComma}
             }else{
-                return {...state, screenValue:state.screenValue*10 + action.payload};
+                return {...state, screenValue:state.screenValue*10 + state.signal*action.payload};
             }                                                
         case 'zero':        
             if(state.comma){    
@@ -46,6 +48,9 @@ const reducer = (state, action)=>{
                 let result = solveOperation(state)
                 return {...initialState, memoValue:result, operation: action.payload}
             }else{
+                if(state.screenValue === 0 && state.memoValue !== 0){
+                    return {...state, operation:action.payload}    
+                }
                 return {...initialState, operation:action.payload, memoValue:state.screenValue}
             }            
         case 'equals':
@@ -67,7 +72,17 @@ const reducer = (state, action)=>{
                     return {...state, memoValue: Math.sqrt(state.screenValue), screenValue:0}
                 }            
             }
-            
+        case 'power':
+            if(state.screenValue !== 0){
+                return {...state, screenValue:Math.pow(state.screenValue, action.payload )}
+            }else if(state.memoValue !== 0 && !state.operation){
+                return {...state, memoValue:Math.pow(state.memoValue, action.payload )}
+            }else{
+                return state
+            }
+        case 'signal':{
+            return {...state, screenValue:state.screenValue*(-1), signal:state.signal*(-1)}
+        }
         default:
             console.log('default')
             return state
@@ -81,7 +96,8 @@ const initialState = {
     memoValue:0,
     operation:null,
     comma:false,
-    postComma:0
+    postComma:0,
+    signal:1
 }
 
 const Calculator = ()=>{
@@ -93,7 +109,9 @@ const Calculator = ()=>{
                 <Screen state={state}></Screen>
                 <Controller/>
             </div>
-            {JSON.stringify(state)}
+            {
+                //JSON.stringify(state)
+            }
         </CalcContext.Provider>
     )
 }

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import './Controller.css'
 import { CalcContext } from './Calculator';
 
@@ -30,12 +30,63 @@ const Controller = ()=>{
         context.dispatch({type:'square-root'})  
     }
 
+    const powerClickHandler = (n)=>{
+        context.dispatch({type:'power', payload:n})
+    }
+
+    const acClick = ()=>{
+        context.dispatch({type:'ac'})
+    }
+
+    const signalClickHandler = ()=>{
+        context.dispatch({type:'signal'})
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown',(event)=>{
+            const keyName = event.key;
+
+            switch (keyName){                
+                case '0':
+                    console.log('case 0')
+                    zeroClickHandler(1)
+                    break;
+                case '+':
+                    opClickHandler('plus')
+                    break;
+                case '-':
+                    opClickHandler('minus')
+                    break;
+                case '*':
+                    opClickHandler('times')
+                    break;
+                case '/':
+                    opClickHandler('division')
+                    break;
+                case 'Enter':
+                    equalsClickHandler()
+                    break;
+                case ',':
+                    commaClickHandler()
+                    break;                
+                case '.':
+                    commaClickHandler()
+                    break;                
+                default:                    
+                    if(parseInt(keyName)){                        
+                        numberClickHandler(parseInt(keyName))
+                    }             
+                    return;
+            }
+        })
+      }, []);
+
     return <div className='Controller'>
-        <button>?</button>
-        <button>?</button>
-        <button>?</button>
+        <button onClick={()=>acClick()}>AC</button>            
+        <button onClick={()=>{powerClickHandler(2)}}>x<sup>2</sup></button>
+        <button onClick={()=>{powerClickHandler(2)}}>x<sup>3</sup></button>
         <button className="operation" onClick={()=>{opClickHandler('plus')}}>+</button>        
-        <button>?</button>
+        <button onClick={()=>{signalClickHandler()}}>+/-</button>        
         <button onClick={squareRootClickHandler}>&#x0221A;</button>
         <button onClick={()=>{opClickHandler('percent')}}>%</button>
         <button className="operation" onClick={()=>{opClickHandler('minus')}}>-</button>

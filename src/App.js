@@ -7,7 +7,7 @@ function App() {
     <React.StrictMode>
       <div className="App">
         <Calculator></Calculator>
-        <footer>developed by wlopes404 v 0.0.1</footer>
+        <footer>developed by wlopes404 v 0.1.0</footer>
       </div>
     </React.StrictMode>
   );
