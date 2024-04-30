@@ -84,7 +84,7 @@ const Controller = ()=>{
     return <div className='Controller'>
         <button onClick={()=>acClick()}>AC</button>            
         <button onClick={()=>{powerClickHandler(2)}}>x<sup>2</sup></button>
-        <button onClick={()=>{powerClickHandler(2)}}>x<sup>3</sup></button>
+        <button onClick={()=>{powerClickHandler(3)}}>x<sup>3</sup></button>
         <button className="operation" onClick={()=>{opClickHandler('plus')}}>+</button>        
         <button onClick={()=>{signalClickHandler()}}>+/-</button>        
         <button onClick={squareRootClickHandler}>&#x0221A;</button>
