@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback } from 'react';
+import { useContext, useEffect } from 'react';
 import './Controller.css'
 import { CalcContext } from './Calculator';
 
@@ -6,49 +6,48 @@ const Controller = ()=>{
 
     const context = useContext(CalcContext)    
 
-    const numberClickHandler = useCallback((param)=>{
+    const numberClickHandler = (param)=>{
         context.dispatch({type:'number', payload:param})    
-    },[context])
+    }
     
-    const zeroClickHandler = useCallback((param)=>{
+    const zeroClickHandler = (param)=>{
         context.dispatch({type:'zero', payload:param})   
-    },[context])
+    }
 
-    const opClickHandler = useCallback((param)=>{
+    const opClickHandler = (param)=>{
         context.dispatch({type:'operation', payload:param})   
-    },[context])
+    }
 
-    const equalsClickHandler = useCallback((param)=>{
+    const equalsClickHandler = (param)=>{
         context.dispatch({type:'equals'})   
-    },[context])
+    }
 
-    const commaClickHandler = useCallback(()=>{
+    const commaClickHandler = ()=>{
         context.dispatch({type:'comma'})  
-    },[context])
+    }
 
-    const squareRootClickHandler = useCallback(()=>{
+    const squareRootClickHandler = ()=>{
         context.dispatch({type:'square-root'})  
-    },[context])
+    }
 
-    const powerClickHandler = useCallback((n)=>{
+    const powerClickHandler = (n)=>{
         context.dispatch({type:'power', payload:n})
-    },[context])
+    }
 
-    const acClick = useCallback(()=>{
+    const acClick = ()=>{
         context.dispatch({type:'ac'})
-    },[context])
+    }
 
-    const signalClickHandler = useCallback(()=>{
+    const signalClickHandler = ()=>{
         context.dispatch({type:'signal'})
-    },[context])
+    }
 
     useEffect(() => {
         document.addEventListener('keydown',(event)=>{
             const keyName = event.key;
 
             switch (keyName){                
-                case '0':
-                    console.log('case 0')
+                case '0':                    
                     zeroClickHandler(1)
                     break;
                 case '+':
@@ -79,7 +78,8 @@ const Controller = ()=>{
                     return;
             }
         })
-      },[commaClickHandler, equalsClickHandler, numberClickHandler, opClickHandler, zeroClickHandler]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[]);
 
     return <div className='Controller'>
         <button onClick={()=>acClick()}>AC</button>            
